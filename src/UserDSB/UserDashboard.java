@@ -59,7 +59,7 @@ public class UserDashboard extends javax.swing.JFrame {
     private String xemail, xusername;
 
     private boolean updateChecker() throws SQLException {
-        ResultSet rs = new DBConnector().getData("select * from inventory where (username = '" + username.getText() + "' or email = '" + email.getText() + "') and id != '" + id2.getText() + "'");
+        ResultSet rs = new DBConnector().getData("select * from users where (username = '" + username.getText() + "' or email = '" + email.getText() + "') and id != '" + id2.getText() + "'");
         if (rs.next()) {
             xemail = rs.getString("email");
             if (xemail.equalsIgnoreCase(email.getText())) {
@@ -79,7 +79,7 @@ public class UserDashboard extends javax.swing.JFrame {
         if (updateChecker()) {
         } else if (!validationChecker()) {
         } else {
-            new DBConnector().updateData("update inventory set email = '" + email.getText() + "',username = '" + username.getText() + "', "
+            new DBConnector().updateData("update users set email = '" + email.getText() + "',username = '" + username.getText() + "', "
                     + "contact = '" + contact.getText() + "', Image = '" + destination + "' where id = '" + id2.getText() + "'");
 
             if (selectedFile != null) {
@@ -732,7 +732,7 @@ public class UserDashboard extends javax.swing.JFrame {
 
         try {
             Session sess = Session.getInstance();
-            ResultSet rs = new DBConnector().getData("select * from inventory where id = '" + sess.getId() + "'");
+            ResultSet rs = new DBConnector().getData("select * from users where id = '" + sess.getId() + "'");
             if (rs.next()) {
 
                 id2.setText("" + rs.getString("id"));
@@ -837,14 +837,14 @@ public class UserDashboard extends javax.swing.JFrame {
                 return;
             } else {
                 Session sess = Session.getInstance();
-                ResultSet rs = new DBConnector().getData("select * from inventory where id = '" + sess.getId() + "'");
+                ResultSet rs = new DBConnector().getData("select * from users where id = '" + sess.getId() + "'");
                 if (rs.next()) {
                     String oldPass = rs.getString("password");
                     String oldHash = passwordHashing.hashPassword(oldPassword.getText());
 
                     if (oldPass.equals(oldHash)) {
                         String newPass = passwordHashing.hashPassword(newPassword.getText());
-                        new DBConnector().updateData("update inventory set password = '" + newPass + "' where id = '" + sess.getId() + "'");
+                        new DBConnector().updateData("update users set password = '" + newPass + "' where id = '" + sess.getId() + "'");
                         successMessage("ACCOUNT SUCCESSFULLY UPDATED!");
                         new LoginDashboard().setVisible(true);
                         dispose();

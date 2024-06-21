@@ -70,7 +70,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void displayUsers() {
         try {
             Session sess = Session.getInstance();
-            ResultSet rs = new DBConnector().getData("select id,email,username,contact,type,status from inventory where status in ('active', 'inactive') and id != '" + sess.getId() + "'");
+            ResultSet rs = new DBConnector().getData("select id,email,username,contact,type,status from users where status in ('active', 'inactive') and id != '" + sess.getId() + "'");
             usersTB.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
@@ -1233,7 +1233,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 dispose();
             }
 
-            String query = "SELECT * FROM inventory WHERE id = ?";
+            String query = "SELECT * FROM users WHERE id = ?";
             try (PreparedStatement pstmt = new DBConnector().getConnection().prepareStatement(query)) {
                 pstmt.setString(1, sess.getId());
                 try (ResultSet rs = pstmt.executeQuery()) {
@@ -1285,7 +1285,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 dispose();
             }
 
-            String query = "SELECT * FROM inventory WHERE id = ?";
+            String query = "SELECT * FROM users WHERE id = ?";
             try (PreparedStatement pstmt = new DBConnector().getConnection().prepareStatement(query)) {
                 pstmt.setString(1, sess.getId());
                 try (ResultSet rs = pstmt.executeQuery()) {

@@ -40,7 +40,7 @@ public class createAccounts extends javax.swing.JFrame {
     private String xemail, xusername;
 
     private boolean duplicateChecker() throws SQLException {
-        ResultSet rs = new DBConnector().getData("select * from inventory where email = '" + email.getText() + "' or username = '" + username.getText() + "'");
+        ResultSet rs = new DBConnector().getData("select * from users where email = '" + email.getText() + "' or username = '" + username.getText() + "'");
         if (rs.next()) {
             xemail = rs.getString("email");
             if (xemail.equals(email.getText())) {
@@ -315,7 +315,7 @@ public class createAccounts extends javax.swing.JFrame {
             } else if (!validationChecker()) {
             } else {
                 String pass = passwordHashing.hashPassword(password.getText());
-                new DBConnector().insertData("insert into inventory (email,username,password,contact,type,status,Image) "
+                new DBConnector().insertData("insert into users (email,username,password,contact,type,status,Image) "
                         + "values ('" + email.getText() + "','" + username.getText() + "', '" + pass + "'"
                         + ",'" + contact.getText() + "','" + type.getSelectedItem() + "', '" + status.getSelectedItem() + "', '" + destination + "')");
 

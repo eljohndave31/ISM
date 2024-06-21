@@ -83,7 +83,7 @@ public class RegisterDashboard extends javax.swing.JFrame {
         }
 
         try {
-            ResultSet rs = new DBConnector().getData("select * from inventory where email = '" + emailText + "' or username = '" + usernameText + "'");
+            ResultSet rs = new DBConnector().getData("select * from users where email = '" + emailText + "' or username = '" + usernameText + "'");
             if (rs.next()) {
                 String xemail = rs.getString("email");
                 if (xemail.equals(emailText)) {
@@ -107,7 +107,7 @@ public class RegisterDashboard extends javax.swing.JFrame {
             String pass = passwordHashing.hashPassword(password.getText());
 
             DBConnector cn = new DBConnector();
-            cn.insertData("insert into inventory (email,contact,username,password,type,status,image) "
+            cn.insertData("insert into users (email,contact,username,password,type,status,image) "
                     + "values ('" + emailText + "', '" + contactText + "', "
                     + "'" + usernameText + "', '" + pass + "', '" + typeText + "', 'Pending', '" + destination + "')");
 

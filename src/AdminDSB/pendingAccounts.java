@@ -19,7 +19,7 @@ public class pendingAccounts extends javax.swing.JFrame {
 
     private void displayData() {
         try {
-            ResultSet rs = new DBConnector().getData("select id,email,username,type from inventory where status = 'PENDING'");
+            ResultSet rs = new DBConnector().getData("select id,email,username,type from users where status = 'PENDING'");
             pendings.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
             System.err.println("An error occurred while fetching data: " + e.getMessage());
@@ -33,7 +33,7 @@ public class pendingAccounts extends javax.swing.JFrame {
         } else {
             try {
                 TableModel tbl = pendings.getModel();
-                new DBConnector().updateData("UPDATE inventory SET status = 'ACTIVE' WHERE id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
+                new DBConnector().updateData("UPDATE users SET status = 'ACTIVE' WHERE id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
                 successMessage("ACCOUNT APPROVED SUCCESSFULLY!!");
                 displayData();
             } catch (SQLException er) {
@@ -49,7 +49,7 @@ public class pendingAccounts extends javax.swing.JFrame {
         } else {
             try {
                 TableModel tbl = pendings.getModel();
-                new DBConnector().updateData("UPDATE inventory SET status = 'DECLINED' WHERE id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
+                new DBConnector().updateData("UPDATE users SET status = 'DECLINED' WHERE id = '" + tbl.getValueAt(rowIndex, 0).toString() + "'");
                 successMessage("ACCOUNT HAS BEEN DISAPPROVED!");
                 displayData();
             } catch (SQLException er) {

@@ -17,7 +17,7 @@ public class LoginDashboard extends javax.swing.JFrame {
     private static String xstatus, xtype;
 
     private boolean loginDB(String email, String pass) throws SQLException {
-        ResultSet rs = new DBConnector().getData("select * from inventory where email = '" + email + "' and password = '" + pass + "'");
+        ResultSet rs = new DBConnector().getData("select * from users where email = '" + email + "' and password = '" + pass + "'");
         if (rs.next()) {
             xstatus = rs.getString("status");
             xtype = rs.getString("type");

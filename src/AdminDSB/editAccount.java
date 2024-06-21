@@ -37,7 +37,7 @@ public class editAccount extends javax.swing.JFrame {
     }
 
     private boolean updateChecker() throws SQLException {
-        ResultSet rs = new DBConnector().getData("select * from inventory where (username = '" + username.getText() + "' or email = '" + email.getText() + "') and id != '" + id.getText() + "'");
+        ResultSet rs = new DBConnector().getData("select * from users where (username = '" + username.getText() + "' or email = '" + email.getText() + "') and id != '" + id.getText() + "'");
         if (rs.next()) {
             String xemail = rs.getString("email");
             if (xemail.equalsIgnoreCase(email.getText())) {
@@ -312,7 +312,7 @@ public class editAccount extends javax.swing.JFrame {
             if (updateChecker()) {
             } else if (!validationChecker()) {
             } else {
-                new DBConnector().updateData("update inventory set email = '" + email.getText() + "',username = '" + username.getText() + "', "
+                new DBConnector().updateData("update users set email = '" + email.getText() + "',username = '" + username.getText() + "', "
                         + "contact = '" + contact.getText() + "', type = '" + type.getSelectedItem() + "', "
                         + "status = '" + status.getSelectedItem() + "' , Image = '" + destination + "' where id = '" + id.getText() + "'");
 

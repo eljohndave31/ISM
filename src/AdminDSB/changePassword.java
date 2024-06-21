@@ -132,14 +132,14 @@ public class changePassword extends javax.swing.JFrame {
             if (!validationChecker()) {
             } else {
                 Session sess = Session.getInstance();
-                ResultSet rs = new DBConnector().getData("select * from inventory where id = '" + sess.getId() + "'");
+                ResultSet rs = new DBConnector().getData("select * from users where id = '" + sess.getId() + "'");
                 if (rs.next()) {
                     String oldPass = rs.getString("password");
                     String oldHash = passwordHashing.hashPassword(oldPassword.getText());
 
                     if (oldPass.equals(oldHash)) {
                         String newPass = passwordHashing.hashPassword(newPassword.getText());
-                        new DBConnector().updateData("update inventory set password = '" + newPass + "' where id = '" + sess.getId() + "'");
+                        new DBConnector().updateData("update users set password = '" + newPass + "' where id = '" + sess.getId() + "'");
                         successMessage("ACCOUNT SUCCESSFULLY UPDATED!");
                         new LoginDashboard().setVisible(true);
                         dispose();
